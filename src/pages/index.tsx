@@ -8,8 +8,12 @@ const Home = ({ data }) => {
       <ul>
         {data.results.shop.map((data, index) => (
           <li key={index}>
-            <figure><img src={data.logo_image} alt='' /></figure>
-            <h2>{data.name}</h2>
+            <a href={`/post/${data.id}`}>
+              <figure>
+                <img src={data.logo_image} alt="" />
+              </figure>
+              <h2>{data.name}</h2>
+            </a>
           </li>
         ))}
       </ul>
