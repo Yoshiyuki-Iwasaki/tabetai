@@ -1,4 +1,4 @@
-# icony
+# tabetai
 
 url:
 
@@ -8,6 +8,4 @@ url:
 - Styled-components (CSS in JS)
 - Storybook
 - Jest(Testing)
-- Prisma(DB)
-- NextAuth.js(Authentication)
-# tabetai
+- Vercel
