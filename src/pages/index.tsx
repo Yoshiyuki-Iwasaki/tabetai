@@ -1,44 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styled from 'styled-components';
-
-const List = styled.ul`
-  margin: 0 15px;
-`;
-const ListItem = styled.li`
-  margin-top: 20px;
-
-  &::first-child {
-    margin-top: 0;
-  }
-`;
-
-const Link = styled.a`
-  display: flex;
-`;
-
-const TextArea = styled.div`
-  padding-left: 10px;
-  width: calc(100% - 69px);
-`;
-
-const Title = styled.h2`
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.4;
-`;
-
-const Text = styled.p`
-  margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.4;
-`;
+import Header from '../components/Header';
 
 const Home = ({ data }) => {
-  console.log("data.results", data.results);
   return (
     <>
-      <h1>tabetai</h1>
+      <Header />
       <List>
         {data.results.shop.map((data, index) => (
           <ListItem key={index}>
@@ -69,4 +37,36 @@ export async function getServerSideProps() {
     },
   };
 }
+
+const List = styled.ul`
+  margin: 80px 15px 0;
+`;
+const ListItem = styled.li`
+  margin-top: 20px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+`;
+
+const Link = styled.a`
+  display: flex;
+`;
+
+const TextArea = styled.div`
+  padding-left: 10px;
+  width: calc(100% - 69px);
+`;
+
+const Title = styled.h2`
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+`;
+
+const Text = styled.p`
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+`;
 export default Home;
