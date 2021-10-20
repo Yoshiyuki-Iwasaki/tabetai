@@ -20,23 +20,23 @@ const Title = styled.h1`
   line-height: 1.3;
 `;
 const Catch = styled.p`
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 13px;
   line-height: 1.3;
 `;
 const Address = styled.p`
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 13px;
   line-height: 1.3;
 `;
 const Access = styled.p`
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 13px;
   line-height: 1.3;
 `;
 
 const DetailLink = styled.a`
-  margin-top: 10px;
+  margin-top: 30px;
   display: inline-block;
   border-bottom: 1px solid #333;
   font-size: 13px;
