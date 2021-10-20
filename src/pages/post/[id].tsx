@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
+import GoogleMapReact from "google-map-react";
 
-const Main = styled.main`
+
+const Main = styled.div`
 `;
 
 const Eyecatch = styled.figure`
@@ -42,10 +44,24 @@ const DetailLink = styled.a`
 `;
 
 const Map = styled.div`
-  margin-top: 30px;
+  margin: 30px auto 0;
+  width: 300px;
+  height: 300px;
 `;
 
 const PostDetail = ({ data }) => {
+  const defaultLatLng = {
+    lat: data.lat,
+    lng: data.lng,
+  };
+
+  const handleApiLoaded = ({ map, maps }) => {
+    new maps.Marker({
+      map,
+      position: defaultLatLng,
+    });
+  };
+
   return (
     <Layout>
       <Main>
@@ -59,7 +75,14 @@ const PostDetail = ({ data }) => {
         <Link href={data.urls.pc} passHref as={data.urls.pc}>
           <DetailLink>詳しくはこちら</DetailLink>
         </Link>
-        <Map>[Google Map挿入場所]</Map>
+        <Map>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_Google_API_KEY }}
+            defaultCenter={defaultLatLng}
+            defaultZoom={16}
+            onGoogleApiLoaded={handleApiLoaded}
+          />
+        </Map>
       </Main>
     </Layout>
   );
