@@ -1,11 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styled from 'styled-components';
+import Link from "next/link";
+import Image from "next/image";
+import styled from "styled-components";
 import Layout from "../components/Layout";
 
-const List = styled.ul`
-  margin: 0 15px;
-`;
+const List = styled.ul``;
 
 const ListItem = styled.li`
   margin-top: 20px;
@@ -15,7 +13,7 @@ const ListItem = styled.li`
   }
 `;
 
-const Link = styled.a`
+const ListLink = styled.a`
   display: flex;
 `;
 
@@ -42,14 +40,16 @@ const Home = ({ data }) => {
       <List>
         {data.results.shop.map((data, index) => (
           <ListItem key={index}>
-            <Link href={`/post/${data.id}`}>
-              <figure>
-                <Image src={data.logo_image} width={65} height={69} alt="" />
-              </figure>
-              <TextArea>
-                <Title>{data.name}</Title>
-                <Text>{data.catch}</Text>
-              </TextArea>
+            <Link href={`/post/${data.id}`} as={`/post/${data.id}`} passHref>
+              <ListLink>
+                <figure>
+                  <Image src={data.logo_image} width={65} height={69} alt="" />
+                </figure>
+                <TextArea>
+                  <Title>{data.name}</Title>
+                  <Text>{data.catch}</Text>
+                </TextArea>
+              </ListLink>
             </Link>
           </ListItem>
         ))}
