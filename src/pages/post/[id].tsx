@@ -12,7 +12,16 @@ const PostDetail = ({ data }) => {
   return (
     <Layout>
       <main>
+        <figure>
+          <img src={data.photo.mobile.l} />
+        </figure>
         <Title>{data.name}</Title>
+        <p>{data.catch}</p>
+        <p>住所:{data.address}</p>
+        <p>アクセス:{data.access}</p>
+        <a href={data.urls.pc}>詳しくはこちら</a>
+
+        <p>[Google Map挿入場所]</p>
       </main>
     </Layout>
   );
@@ -40,6 +49,7 @@ export async function getServerSideProps(context) {
     .then(res => res.json())
     .catch(() => null);
   const data = fetchData.results.shop.find(fetchData => fetchData.id == id);
+  console.log('data', data);
   return {
     props: {
       data,
