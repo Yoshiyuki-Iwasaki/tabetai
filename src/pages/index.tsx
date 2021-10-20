@@ -1,11 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styled from 'styled-components';
+import Link from "next/link";
+import Image from "next/image";
+import styled from "styled-components";
 import Layout from "../components/Layout";
 
-const List = styled.ul`
-  margin: 0 15px;
-`;
+const List = styled.ul``;
 
 const ListItem = styled.li`
   margin-top: 20px;
@@ -15,7 +13,7 @@ const ListItem = styled.li`
   }
 `;
 
-const Link = styled.a`
+const ListLink = styled.a`
   display: flex;
 `;
 
@@ -27,13 +25,13 @@ const TextArea = styled.div`
 const Title = styled.h2`
   font-size: 16px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.3;
 `;
 
 const Text = styled.p`
   margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.3;
 `;
 
 const Home = ({ data }) => {
@@ -42,14 +40,16 @@ const Home = ({ data }) => {
       <List>
         {data.results.shop.map((data, index) => (
           <ListItem key={index}>
-            <Link href={`/post/${data.id}`}>
-              <figure>
-                <Image src={data.logo_image} width={65} height={69} alt="" />
-              </figure>
-              <TextArea>
-                <Title>{data.name}</Title>
-                <Text>テストテスト</Text>
-              </TextArea>
+            <Link href={`/post/${data.id}`} as={`/post/${data.id}`} passHref>
+              <ListLink>
+                <figure>
+                  <Image src={data.logo_image} width={65} height={69} alt="" />
+                </figure>
+                <TextArea>
+                  <Title>{data.name}</Title>
+                  <Text>{data.catch}</Text>
+                </TextArea>
+              </ListLink>
             </Link>
           </ListItem>
         ))}
