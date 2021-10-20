@@ -1,46 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styled from 'styled-components';
-import Header from '../components/Header';
-
-const Home = ({ data }) => {
-  return (
-    <>
-      <Header />
-      <List>
-        {data.results.shop.map((data, index) => (
-          <ListItem key={index}>
-            <Link href={`/post/${data.id}`}>
-              <figure>
-                <Image src={data.logo_image} width={65} height={69} alt="" />
-              </figure>
-              <TextArea>
-                <Title>{data.name}</Title>
-                <Text>テストテスト</Text>
-              </TextArea>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
-};
-
-export async function getServerSideProps() {
-  const defaultEndpoint = `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`;
-  const res = await fetch(defaultEndpoint);
-  const data = await res.json();
-
-  return {
-    props: {
-      data,
-    },
-  };
-}
+import Layout from "../components/Layout";
 
 const List = styled.ul`
-  margin: 80px 15px 0;
+  margin: 0 15px;
 `;
+
 const ListItem = styled.li`
   margin-top: 20px;
 
@@ -69,4 +35,40 @@ const Text = styled.p`
   font-size: 14px;
   line-height: 1.4;
 `;
+
+const Home = ({ data }) => {
+  return (
+    <Layout>
+      <List>
+        {data.results.shop.map((data, index) => (
+          <ListItem key={index}>
+            <Link href={`/post/${data.id}`}>
+              <figure>
+                <Image src={data.logo_image} width={65} height={69} alt="" />
+              </figure>
+              <TextArea>
+                <Title>{data.name}</Title>
+                <Text>テストテスト</Text>
+              </TextArea>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
+    </Layout>
+  );
+};
+
 export default Home;
+
+export async function getServerSideProps() {
+  const data = await fetch(
+    `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
+  )
+    .then(res => res.json())
+    .catch(() => null);
+  return {
+    props: {
+      data,
+    },
+  };
+}
