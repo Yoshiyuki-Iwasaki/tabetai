@@ -1,9 +1,13 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 const Header = () => {
   return (
     <HeaderLayout>
-      <Title>tabetai</Title>
+      <Link href="/" passHref as="/">
+        <a>戻る</a>
+      </Link>
+      <Title>Tabetai</Title>
     </HeaderLayout>
   );
 };

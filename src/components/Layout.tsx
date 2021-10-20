@@ -2,7 +2,7 @@ import Header from "./Header";
 import styled from "styled-components";
 
 const Main = styled.main`
-  margin-top: 80px;
+  margin: 80px 15px 0;
 `;
 
 const Layout = ({ children }: any) => {
