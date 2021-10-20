@@ -27,13 +27,13 @@ const TextArea = styled.div`
 const Title = styled.h2`
   font-size: 16px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.3;
 `;
 
 const Text = styled.p`
   margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.3;
 `;
 
 const Home = ({ data }) => {
@@ -48,7 +48,7 @@ const Home = ({ data }) => {
               </figure>
               <TextArea>
                 <Title>{data.name}</Title>
-                <Text>テストテスト</Text>
+                <Text>{data.catch}</Text>
               </TextArea>
             </Link>
           </ListItem>
