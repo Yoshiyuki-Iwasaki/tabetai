@@ -5,9 +5,77 @@ import styled from "styled-components";
 import Layout from "../../components/Layout";
 import GoogleMapReact from "google-map-react";
 
+const PostDetail = ({ data }) => {
+  const defaultLatLng = {
+    lat: data.lat,
+    lng: data.lng,
+  };
 
-const Main = styled.div`
-`;
+  const handleApiLoaded = ({ map, maps }) => {
+    new maps.Marker({
+      map,
+      position: defaultLatLng,
+    });
+  };
+
+  return (
+    <Layout>
+      <Main>
+        <Eyecatch>
+          <Image src={data.photo.mobile.l} width={168} height={168} />
+        </Eyecatch>
+        <Title>{data.name}</Title>
+        <Catch>{data.catch}</Catch>
+        <Address>住所:{data.address}</Address>
+        <Access>アクセス:{data.access}</Access>
+        <Link href={data.urls.pc} as={data.urls.pc} passHref>
+          <DetailLink>詳しくはこちら</DetailLink>
+        </Link>
+        <Map>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_Google_API_KEY }}
+            defaultCenter={defaultLatLng}
+            defaultZoom={16}
+            onGoogleApiLoaded={handleApiLoaded}
+          />
+        </Map>
+      </Main>
+    </Layout>
+  );
+};
+
+export default PostDetail;
+
+export const getServerSidePaths = async () => {
+  const fetchData = await fetch(
+    `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
+  )
+    .then(res => res.json())
+    .catch(() => null);
+  console.log('fetchData', fetchData);
+  const paths = fetchData.results.shop.map(
+    fetchData => `/posts/${fetchData.id}`
+  );
+  return { paths, fallback: false };
+};
+
+export async function getServerSideProps(context) {
+  const id = context.params.id;
+  const fetchData = await fetch(
+    `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
+  )
+    .then(res => res.json())
+    .catch(() => null);
+  console.log("fetchData02", fetchData);
+  const data = fetchData.results.shop.find(fetchData => fetchData.id == id);
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+const Main = styled.div``;
 
 const Eyecatch = styled.figure`
   text-align: center;
@@ -48,72 +116,3 @@ const Map = styled.div`
   width: 300px;
   height: 300px;
 `;
-
-const PostDetail = ({ data }) => {
-  const defaultLatLng = {
-    lat: data.lat,
-    lng: data.lng,
-  };
-
-  const handleApiLoaded = ({ map, maps }) => {
-    new maps.Marker({
-      map,
-      position: defaultLatLng,
-    });
-  };
-
-  return (
-    <Layout>
-      <Main>
-        <Eyecatch>
-          <Image src={data.photo.mobile.l} width={168} height={168} />
-        </Eyecatch>
-        <Title>{data.name}</Title>
-        <Catch>{data.catch}</Catch>
-        <Address>住所:{data.address}</Address>
-        <Access>アクセス:{data.access}</Access>
-        <Link href={data.urls.pc} passHref as={data.urls.pc}>
-          <DetailLink>詳しくはこちら</DetailLink>
-        </Link>
-        <Map>
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_Google_API_KEY }}
-            defaultCenter={defaultLatLng}
-            defaultZoom={16}
-            onGoogleApiLoaded={handleApiLoaded}
-          />
-        </Map>
-      </Main>
-    </Layout>
-  );
-};
-
-export default PostDetail;
-
-export const getServerSidePaths = async () => {
-  const fetchData = await fetch(
-    `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
-  )
-    .then(res => res.json())
-    .catch(() => null);
-  const paths = fetchData.results.shop.map(
-    fetchData => `/posts/${fetchData.id}`
-  );
-  return { paths, fallback: false };
-};
-
-export async function getServerSideProps(context) {
-  const id = context.params.id;
-  const fetchData = await fetch(
-    `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
-  )
-    .then(res => res.json())
-    .catch(() => null);
-  const data = fetchData.results.shop.find(fetchData => fetchData.id == id);
-  console.log('data', data);
-  return {
-    props: {
-      data,
-    },
-  };
-}
