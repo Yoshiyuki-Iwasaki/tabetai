@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const Header = () => {
-  const [text, setText] = useState<string>("");
   const router = useRouter();
   const pathname = router.pathname;
   const otherTopPage = pathname != "/"; // toppage以外
@@ -12,10 +11,6 @@ const Header = () => {
 
   const filterFunc = () => {
     console.log("filterFunc");
-  };
-
-  const handleInput = e => {
-    setText(e.target.value);
   };
 
   return (
@@ -29,10 +24,6 @@ const Header = () => {
       {onlyTopPage && (
         <>
           <FilterText onClick={filterFunc}>絞り込む</FilterText>
-          <Form>
-            <SearchLabel htmlFor="search">検索キーワード:</SearchLabel>
-            <Input id="search" type="text" value={text} onChange={handleInput} />
-          </Form>
         </>
       )}
     </HeaderLayout>
@@ -70,24 +61,6 @@ const FilterText = styled.p`
   transform: translate(0, -50%);
   font-size: 14px;
   color: #fff;
-`;
-const Form = styled.form`
-  padding: 10px 5px;
-  position: absolute;
-  background: #fff;
-  border-bottom: 2px solid #333;
-  text-align: center;
-  bottom: -42px;
-  left: 0;
-  width: 100%;
-`;
-const Input = styled.input`
-  border: 1px solid #333;
-  font-size: 14px;
-`;
-const SearchLabel = styled.label`
-  margin-right: 10px;
-  font-size: 14px;
 `;
 
 export default Header;

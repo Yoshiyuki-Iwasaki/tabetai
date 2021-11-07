@@ -1,10 +1,6 @@
 import Header from "./Header";
 import styled from "styled-components";
 
-const Main = styled.main`
-  margin: 130px 15px 40px;
-`;
-
 const Layout = ({ children }: any) => {
   return (
     <>
@@ -15,3 +11,8 @@ const Layout = ({ children }: any) => {
 };
 
 export default Layout;
+
+
+const Main = styled.main`
+  margin: 130px 15px 40px;
+`;
