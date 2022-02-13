@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npx http-server ./out",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,6 +12,7 @@
     "google-map-react": "^2.1.10",
     "next": "11.1.0",
     "node-fetch": "^3.0.0",
+    "prettier": "^2.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-infinite-scroll-component": "^6.1.0",

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import Layout from "../components/Layout";
-import SearchField from "../components/SearchField";
+// import SearchField from "../components/SearchField";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Home = ({ data }) => {
@@ -97,9 +97,7 @@ const Home = ({ data }) => {
           <ListItem key={index}>
             <Link href={`/post/${data.id}`} as={`/post/${data.id}`} passHref>
               <ListLink>
-                <figure>
-                  <Image src={data.logo_image} width={65} height={69} alt="" />
-                </figure>
+                <Image src={data.logo_image} width={65} height={69} alt="" />
                 <TextArea>
                   <Title>{data.name}</Title>
                   <Text>{data.catch}</Text>
