@@ -46,34 +46,32 @@ const PostDetail = ({ data }) => {
 
 export default PostDetail;
 
-export const getServerSidePaths = async () => {
+export const getStaticPaths = async () => {
   const fetchData = await fetch(
     `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
   )
     .then(res => res.json())
     .catch(() => null);
-  console.log('fetchData', fetchData);
   const paths = fetchData.results.shop.map(
-    fetchData => `/posts/${fetchData.id}`
+    fetchData => `/post/${fetchData.id}`
   );
   return { paths, fallback: false };
 };
 
-export async function getServerSideProps(context) {
+export const getStaticProps = async context => {
   const id = context.params.id;
   const fetchData = await fetch(
     `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=${process.env.NEXT_PUBLIC_API_KEY}&format=json&large_area=Z011`
   )
     .then(res => res.json())
     .catch(() => null);
-  console.log("fetchData02", fetchData);
-  const data = fetchData.results.shop.find(fetchData => fetchData.id == id);
+  const array = fetchData.results.shop.find(fetchData => fetchData.id == id);
   return {
     props: {
-      data,
+      data: array,
     },
   };
-}
+};
 
 const Main = styled.div``;
 
